@@ -1,0 +1,214 @@
+*{  
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.app{
+    min-height: 1500px;
+    display: block;
+}
+#header{
+    background-color:rgba(3, 169, 244, 1);
+    min-width: 1485px;
+    position: fixed;
+    z-index: 1;
+}
+
+#nav {
+    display: inline-block;
+
+}
+
+#nav > li{
+    display: inline-block;
+}
+
+#nav li {
+    position: relative;
+}
+
+#nav>li>a {
+    color: white;
+    text-transform: uppercase;
+}
+
+#nav li a{
+     color: white;
+     text-decoration: none;
+     line-height: 46px;
+     padding: 0 24px;
+}
+
+#nav li:hover .subNav{
+    display: block;
+}
+
+
+#nav , .subNav {
+    list-style-type: none;
+}
+
+#nav .subNav{
+    display: none;
+    position: absolute;
+    background-color: white;
+    top :48px;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+#nav .subNav li:hover a,
+#nav > li:hover > a{
+    color: black;
+    background-color: #ccc;
+    display: block;
+}
+
+#nav .subNav a{
+    color: black;
+    padding: 0 16px;
+}
+
+#nav .icon-down{
+    font-size: 14px;
+}
+
+.auth-btn{
+    float: right;
+}
+
+.auth-btn #auth >li{
+    display: inline-block;
+}
+
+#auth li {
+    position: relative;
+}
+
+#auth li a{
+    color: #fff;
+    text-decoration: none;
+    line-height: 46px;
+    padding: 0 24px;
+    text-transform: uppercase;
+}
+
+#auth li a:hover{
+    color: #000;
+    background-color: #ccc;
+    display: block;
+}
+
+#container{
+    padding-top: 47px;
+}
+
+.modal{
+    position: fixed;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    align-items: center;
+    justify-content: center;
+    display: none;
+}
+
+.open{
+    display: flex;
+    min-width: 1500px;
+    min-height: 670px;
+}
+
+.modal .modal-login,.modal-register{
+    position: relative;
+    border-radius: 14px;
+    width: 500px;
+    max-width: calc(100%-32px);
+    min-height: 200px;
+    background-color: white;
+    animation: FadeIn 0.5s ;
+}
+
+.modal-close{
+    position: absolute;
+    padding: 12px;
+    right: 0;
+    color: white;
+    cursor: pointer;
+}
+
+.modal-body h2{
+    display: flex;
+    justify-content: center;
+    margin: 0 0 5px 0;
+}
+
+.modal-header{
+    font-size: 28px;
+    background-color: rgba(3, 169, 244, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    letter-spacing: 4px;
+    color: #333;
+    font-weight: 800;
+    border-radius: 14px;
+}
+
+.modal-label{
+    display: block;
+    font-size: 16px;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    padding: 0 8px;
+}
+
+.modal-input{
+    margin-bottom: 5pxpx;
+    font-size: 15px;
+    width: 97%;
+    border: 2px solid #ccc;
+    padding: 10px;
+    margin-left: 1.5%;
+    margin-right: 1.5%;
+}
+
+.modal-submit{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-submit .submit{
+    width: 20%;
+    height: 33px;
+    background-color: rgba(255, 82, 82, 1);
+    font-size: 16px;
+    border-radius: 6px;
+    border-style: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.modal-forget{
+    margin-left: 1%;
+    text-decoration: none;
+}
+
+@keyframes FadeIn {
+    from{
+        opacity: 0;
+        transform: translateY(-500px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+}
+
+.errors{
+    margin-left: 1%;
+}

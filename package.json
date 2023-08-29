@@ -1,0 +1,20 @@
+{
+  "name": "js-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --inspect src/server.js"
+  },
+  "author": "The-clown",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2",
+    "handlebars": "^4.7.8",
+    "mongoose": "^7.4.5",
+    "nodemon": "^3.0.1",
+    "validator": "^13.11.0"
+  }
+}

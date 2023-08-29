@@ -1,0 +1,169 @@
+<div class="header-bar">
+    <div id="header">
+                <!-- Nav -->
+                <ul id="nav">
+                        <li><a href="">Home</a></li>
+                        <li><a href="">Favourite</a></li>
+                        <li><a href="">Friend</a></li>
+                        <li><a href="">Post</a></li>
+                        <li>
+                            <a href="">
+                                More
+                                <i class="icon-down ti-angle-down"> </i>
+                            </a>
+                            <ul class="subNav">
+                                <li><a href="">Name</a></li>
+                                <li><a href="">Phone</a></li>
+                                <li><a href="">Address</a></li>
+                            </ul>
+                        </li>
+                </ul>
+                <!-- Search -->
+                <div class="auth-btn">
+                    <ul id = "auth">
+                        <li><a href="" id = "login">Login</a></li>
+                        <li><a href="" id = "regist">Register</a></li>
+                    </ul>
+                </div>
+    </div>
+    <form class="modal" id = "modal-login">
+        <div class="modal-login">
+        <div class="modal-close">
+            <i class = "ti-close"></i>
+        </div>
+        <div class="modal-header">
+            Login
+        </div>
+        <div class="modal-body">
+
+            <label for="" class="modal-label">Account</label>
+            <input type="text" name = "user" class="modal-input">
+            <span class="error-acc errors"></span>
+
+            <label for="" class="modal-label">Password</label>
+            <input type="text" name = "password" class="modal-input">
+            <span class="error-pass errors"></span>
+
+            <div>
+                <a href="" class="modal-forget">Forget password?</a>
+            </div>
+            
+            <div class="modal-submit">
+                <button id = "btn-login" class = "submit">
+                Login
+            </button>
+            </div>
+            <h2>or</h2>
+            <div class="modal-submit">
+                <button class = "submit redirect">
+                Sign up
+            </button>
+            </div>  
+        </div>
+    </div>
+    </form>
+    <form class="modal" id = "modal-register">
+        <div class="modal-register">
+            <div class="modal-close">
+            <i class = "ti-close"></i>
+        </div>
+        <div class="modal-header">
+           Register
+        </div>
+        <div class="modal-body">
+            <div class="modal-container">
+            <label for="" class="modal-label">Account</label>
+            <input type="text" name = "user" class="modal-input">
+            <span class="error-acc-sign"></span>
+            </div>
+
+
+            <label for="" class="modal-label">Password</label>
+            <input type="text" name = "password" class="modal-input">
+            <span class="error-pass-sign"></span>
+
+            <label for="" class="modal-label">Retype Password</label>
+            <input type="text" name = "re-password" class="modal-input">
+
+            <div class="modal-submit">
+                <button id = "btn-sign-up" class = "submit">
+                Sign up
+            </button>
+            </div>
+            <h2>or</h2>
+            <div class="modal-submit">
+                <button class = "submit redirect">
+                Login
+            </button>
+            </div>  
+        </div>
+        </div>
+    </form>
+    
+</div>
+<script>
+    const login = document.getElementById('login');
+    const btn_login = document.getElementById('btn-login');
+    const btn_signup = document.getElementById('btn-sign-up')
+    const form_login = document.querySelector('#modal-login')
+    const form_signup = document.querySelector('#modal-register')
+    const close = document.getElementsByClassName('modal-close');
+    const modal_login = document.getElementById('modal-login');
+    const signup = document.getElementById('regist');
+    const modal_sign = document.getElementById('modal-register');
+    const redirect = document.getElementsByClassName('redirect');
+    const signErrAcc = document.querySelector('.error-acc-sign');
+    const signErrPass = document.querySelector('.error-pass-sign');
+
+    
+    login.addEventListener("click",(e)=>{
+        e.preventDefault();
+        modal_login.classList.add('open');
+        modal_sign.classList.remove('open');
+    })
+    close[0].onclick = ()=>{
+        modal_login.classList.remove('open');
+    }
+    signup.addEventListener('click',(e)=>{
+        e.preventDefault();
+        modal_login.classList.remove('open');
+        modal_sign.classList.add('open')
+        console.log("ok")
+    })
+    close[1].onclick= ()=>{
+        modal_sign.classList.remove('open');
+    }
+
+    redirect[0].onclick =()=>{
+        modal_login.classList.remove('open');
+        modal_sign.classList.add('open')
+    }
+    redirect[1].onclick =()=>{
+         modal_login.classList.add('open');
+         modal_sign.classList.remove('open')
+    }
+   btn_signup.onclick = async(e)=>{
+    e.preventDefault();
+    const user = form_signup.user.value;
+    const password = form_signup.password.value;
+    try{
+        const res = await fetch('./auth/signUp',{
+        method: 'POST',
+        body: JSON.stringify({acc:user,password:password}),
+        headers: {'Content-Type':'application/json'}
+    })
+        const data = await res.json();
+        if(data.errors)
+        {
+            console.log(signErrAcc,signErrPass)
+            signErrAcc.textContent = data.errors.acc;
+            signErrPass.textContent = data.errors.password;
+            signErrAcc.parentElement.classList.add("invalid")
+        }
+    }
+    catch(err)
+    {
+
+    } 
+   }
+</script>
