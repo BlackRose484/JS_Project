@@ -192,6 +192,21 @@
     margin-bottom: 10px;
 }
 
+.modal-submit .redirect{
+    width: 20%;
+    height: 33px;
+    background-color: rgba(255, 82, 82, 1);
+    font-size: 16px;
+    border-radius: 6px;
+    border-style: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
 .modal-forget{
     margin-left: 1%;
     text-decoration: none;
@@ -212,3 +227,11 @@
 .errors{
     margin-left: 1%;
 }
+
+.modal-group.invalid .modal-input {
+    border-color: #f33a58;
+  }
+  
+.modal-group.invalid .errors {
+    color: #f33a58;
+  }

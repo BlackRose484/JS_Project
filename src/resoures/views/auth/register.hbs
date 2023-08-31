@@ -1,0 +1,93 @@
+<form class="modal" id = "modal-register">
+        <div class="modal-register">
+            <div class="modal-close">
+            <i class = "ti-close"></i>
+        </div>
+        <div class="modal-header">
+           Register
+        </div>
+        <div class="modal-body">
+            <div class="modal-group">
+                <label for="" class="modal-label">Account</label>
+                <input type="text" name = "user" class="modal-input">
+                <span class="error-acc errors"></span>
+            </div>
+
+            <div class="modal-group">
+                <label for="" class="modal-label">Password</label>
+                <input type="password" name = "password" class="modal-input">
+                <span class="error-pass errors"></span>
+            </div>
+            
+
+            <label for="" class="modal-label">Retype Password</label>
+            <input type="text" name = "re-password" class="modal-input">
+
+            <div class="modal-submit">
+                <button id = "btn-sign-up" class = "submit">
+                Sign up
+            </button>
+            </div>
+            <h2>or</h2>
+            <div class="modal-submit">
+                <div class = "redirect">
+                Login
+            </div>
+            </div>  
+        </div>
+        </div>
+</form>
+<script>
+    const modal_close = document.getElementsByClassName('modal-close');  
+    const btn_signup = document.getElementById('btn-sign-up')
+    const form_signup = document.querySelector('#modal-register')
+    const modal_sign = document.getElementById('modal-register');
+    
+    modal_sign.classList.add('open')
+
+    const ErrAcc = document.querySelector('.error-acc');
+    const ErrPass = document.querySelector('.error-pass');
+
+    const redirectForm = document.querySelector('.redirect');
+    console.log(redirectForm);
+    redirectForm.onclick = ()=>{
+        location.assign('/auth/loginForm');
+    }
+    modal_close[0].onclick = ()=>{
+        modal_sign.classList.remove('open');
+        location.assign('/');
+    }
+    
+    btn_signup.onclick = async(e)=>{
+    e.preventDefault();
+    const user = form_signup.user.value;
+    const password = form_signup.password.value;
+    try{
+        const res = await fetch('./signUp',{
+        method: 'POST',
+        body: JSON.stringify({acc:user,password:password}),
+        headers: {'Content-Type':'application/json'}
+    })
+        const data = await res.json();
+        if(data.errors)
+        {
+            ErrAcc.textContent = data.errors.acc;
+            ErrPass.textContent = data.errors.password;
+            ErrAcc.parentElement.classList.add('invalid');
+            ErrPass.parentElement.classList.add('invalid');
+            console.log(data.errors.acc,data.errors.password)
+        }
+        if(data.user)
+        {
+            console.log("OKEEE")
+            e.preventDefault();
+            location.assign('/');
+        }
+    }
+    catch(err)
+    {
+
+    } 
+   }
+   
+</script>

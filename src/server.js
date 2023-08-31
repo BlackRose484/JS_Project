@@ -3,12 +3,14 @@ const express = require('express')
 const exphbs = require('express-handlebars').engine;
 const route = require('./routes')
 const db = require('./config/db');
+const Cookies = require('cookie-parser');
 
 
 const app = express()
 const port = 3000
 
 db.connect();
+app.use(Cookies())
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
   express.urlencoded({
