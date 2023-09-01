@@ -1,0 +1,69 @@
+<form id = "post-form" action="">
+    <div id="post-data" class="post-main" data-acc = "{{user}}">
+    <div class="post-header">
+        Hello {{user}}
+        </br>
+       What book do you would like to introduce??
+    </div>
+    <div class="post-body">
+        <div class="form-group">
+            <label for="" class="input-label">Name of book</label>
+            <input type="text" name = "nameBook" class="modal-input book-name">
+        </div>
+        <div class="form-group">
+            <label for="" class="input-label">Link of book</label>
+            <input type="text" name = "linkBook" class="modal-input book-link">
+            <span class ="error-book errors"></span>
+        </div>
+        <div class="form-group">
+            <label for="" class="input-label">Description of your book
+</label>
+            <textarea type="text" name = "desBook" class="modal-input book-des"></textarea>
+        </div>
+        <div class="modal-submit">
+            <button class="submit">Post your book</button>
+        </div>
+    </div>
+    </div> 
+</form>
+
+<script>
+    const getAcc = document.querySelector('.post-main').getAttribute('data-acc');
+    console.log(getAcc);
+    const postForm = document.querySelector('#post-form');
+    const postError =document.querySelector('.error-book')
+    const BtnSubmit = document.querySelector('.modal-submit');
+    BtnSubmit.onclick =  async (e)=>{
+        e.preventDefault();
+        const nameBook = postForm.nameBook.value;
+        const linkBook = postForm.linkBook.value;
+        const desBook = postForm.desBook.value;
+        console.log(nameBook,linkBook,desBook);
+
+        try{
+            const res = await fetch('/me/postBook',{
+                method: "POST",
+                body: JSON.stringify({acc:getAcc,nameBook:nameBook,linkBook:linkBook,desBook:desBook}),
+                headers: {'Content-Type':'application/json'}
+            })
+            const data = await res.json();
+            if(data.acc)
+            {
+                console.log("Ok");
+            }
+            if(data.error)
+            {
+                console.log(data.error.link);
+                postError.textContent = data.error.link;
+                postError.parentElement.classList.add("invalid")
+            }
+
+        }
+        catch(err)
+        {
+
+        }
+
+        
+    }
+</script>

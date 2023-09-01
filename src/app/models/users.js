@@ -7,13 +7,17 @@ const Users = new Schema(
     {
         acc:{
             type: String,
-            require: true,
+            required: [true,"Please enter acc"],
             unique:true,
         },
         password:{
             type:String,
-            require:true,
+            required:[true,"Please enter password"],
             minlength:[6,"Password require 6"]
+        },
+        favour:{
+            type:String,
+            default:""
         }
     },
     {

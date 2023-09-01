@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 .app{
-    min-height: 1500px;
+    height: 672px;
     display: block;
 }
 #header{
@@ -99,6 +99,8 @@
 
 #container{
     padding-top: 47px;
+    height: 100%;
+    width: 100%;
 }
 
 .modal{
@@ -156,7 +158,7 @@
     border-radius: 14px;
 }
 
-.modal-label{
+.modal-label,.input-label{
     display: block;
     font-size: 16px;
     margin-top: 12px;
@@ -184,6 +186,7 @@
 .modal-submit .submit{
     width: 20%;
     height: 33px;
+    margin-top: 10px;
     background-color: rgba(255, 82, 82, 1);
     font-size: 16px;
     border-radius: 6px;
@@ -235,3 +238,76 @@
 .modal-group.invalid .errors {
     color: #f33a58;
   }
+
+.form-group.invalid .modal-input{
+    border-color: #f33a58;
+}
+
+.form-group.invalid .errors {
+    color: #f33a58;
+  }
+
+#post-form{
+    height: 100%;
+    width: 100%; 
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left:0;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+.post-header{
+    font-size: 28px;
+    background-color: rgba(3, 169, 244, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    letter-spacing: 4px;
+    color: #333;
+    font-weight: 800;
+    border-radius: 14px;
+}
+
+.post-main{
+    width: 50%;
+    height: 50%;
+}
+
+textarea{
+    height: 100px;
+}
+
+.body-page{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.body-page .card{
+    margin: 14px;
+    border: 2px solid gray;
+    width: 18%;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.body-page .card .card-img{
+    margin: 5px 0;
+    width: 96%;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid gray;
+}
+
+.favour{
+    background-color: red;
+}

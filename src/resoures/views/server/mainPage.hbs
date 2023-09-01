@@ -1,0 +1,56 @@
+<div class="main-page">
+    <div data-acc = "{{user}}"  class="header-page">
+        Welcome {{user}}
+    </div>
+    <div class="body-page">
+        {{#each book}}
+        <div class="card">
+            <img class="card-img" src="http://img.youtube.com/vi/{{this.linkBook}}/maxresdefault.jpg" >
+                IMG
+            </img>
+            <div class="card-name">
+                <h3>{{this.nameBook}}</h3>
+            </div>
+            <div class="card-des">
+                <h5>{{this.desBook}}</h5>
+            </div>
+            <div class="card-favour">
+                <i data-link="{{this.linkBook}}" class="ti-heart"></i>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+<script>
+    const favourBooks = document.querySelectorAll('.ti-heart');
+    console.log(favourBooks);
+    favourBooks.forEach(function(favourBook){
+        favourBook.onclick = (e)=>{
+            if(favourBook.classList.contains('favour'))
+            {
+                const linkBookFavour = favourBook.getAttribute('data-link');
+                const curAcc = document.querySelector('.header-page').getAttribute('data-acc');
+                console.log(linkBookFavour,curAcc)
+                const res = fetch('/me/removeFavour',{
+                    method:"POST",
+                    body:JSON.stringify({acc:curAcc,linkBook: linkBookFavour+'/'}),
+                    headers: {'Content-Type':'application/json'}
+                })
+                favourBook.classList.remove('favour');
+            }
+            else
+            {
+                const linkBookFavour = favourBook.getAttribute('data-link');
+                const curAcc = document.querySelector('.header-page').getAttribute('data-acc');
+                console.log(linkBookFavour,curAcc)
+                const res = fetch('/me/addFavour',{
+                    method:"POST",
+                    body:JSON.stringify({acc:curAcc,linkBook: linkBookFavour}),
+                    headers: {'Content-Type':'application/json'}
+                })
+                favourBook.classList.add('favour')
+            }
+        }
+    })
+</script>
