@@ -14,7 +14,9 @@ const Books = new Schema(
        },
        desBook:{
         type:String
-       }
+       },
+       like:{type:Number,default:1},
+       follow:{type:Number,default:1}
     },
     {
         timestamps:true

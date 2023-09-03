@@ -18,6 +18,10 @@ const Users = new Schema(
         favour:{
             type:String,
             default:""
+        },
+        likeBook:{
+            type:String,
+            default:""
         }
     },
     {

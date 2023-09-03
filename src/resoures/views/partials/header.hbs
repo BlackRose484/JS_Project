@@ -1,12 +1,15 @@
+<div class="first">
+        
+</div>
 <div class="header-bar">
     <div id="header">
                 <!-- Nav -->
                 <ul id="nav">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/server/show">All Book</a></li>
-                        <li><a href="/me/{{user}}">Favourite</a></li>
+                        <li><a href="/"><i class = "ti-home"></i>Home</a></li>
+                        <li><a href="/server/show"><i class = "ti-book"></i>All Book</a></li>
+                        <li><a href="/me/{{user}}"><i class = "ti-save"></i>Favourite</a></li>
                         <li><a href="">Friend</a></li>
-                        <li><a href="/me/postForm">Post</a></li>
+                        <li><a href="/me/postForm"><i class="ti-marker-alt"></i>Post</a></li>
                         <li>
                             <a href="">
                                 More
@@ -23,8 +26,16 @@
                 <div class="auth-btn">
                     <ul id = "auth">
                         {{#if user}}
-                        <li>Welcome {{user}}</li>
-                        <li><a href="/auth/logout">Log out</a></li>
+                        <li>
+                            <a href="">
+                              {{user}}
+                                <i class="icon-down ti-angle-down"> </i>
+                            </a>
+                            <ul class="subNav">
+                                <li><a href="">Info</a></li>
+                                <li><a href="/auth/logout">Log out</a></li>
+                            </ul>
+                        </li>
                         {{else}}
                         <li><a href="/auth/loginForm" id = "login">Login</a></li>
                         <li><a href="/auth/regisForm" id = "regist">Register</a></li>

@@ -1,0 +1,81 @@
+
+<div data-acc="{{user}}" class="show-book">
+    <div class="video-book">
+        <iframe width="1200" height="700" src="https://www.youtube.com/embed/{{newCurBook.link}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+    <div class="main-book">
+        <div class="name-book">
+            <h1>{{newCurBook.name}}</h1>
+        </div>
+        <div class="favour-book ">
+            <i data-like="{{newCurBook.isLike}}" class="ti-thumb-up"></i>
+            <i data-have="{{newCurBook.isHave}}" data-link="{{newCurBook.link}}" class = 'ti-heart'></i>
+        </div>
+        <div class="des-book">
+            <p>{{newCurBook.des}}</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const isHave = document.querySelector('.ti-heart').getAttribute('data-have');
+    const isLike = document.querySelector('.ti-thumb-up').getAttribute('data-like');
+    const acc = document.querySelector('.show-book').getAttribute('data-acc');
+    const link = document.querySelector('.ti-heart').getAttribute('data-link');
+    if(isHave==="true")
+    {
+        document.querySelector('.ti-heart').classList.add('favour')
+    }
+    else 
+    {
+        console.log("No")
+    }
+    if(isLike==="true")
+    {
+        document.querySelector('.ti-thumb-up').classList.add('like')
+    }
+
+    const Favour = document.querySelector('.ti-heart');
+    Favour.onclick = (e)=>{
+        if(Favour.classList.contains('favour'))
+        {
+            document.querySelector('.ti-heart').classList.remove('favour');
+            const res = fetch('/me/removeFavour',{
+                method:"POST",
+                body:JSON.stringify({acc,linkBook:link}),
+                headers: {'Content-Type':'application/json'}
+            })
+        }
+        else
+        {
+            document.querySelector('.ti-heart').classList.add('favour');
+            const res = fetch('/me/addFavour',{
+                method:"POST",
+                body:JSON.stringify({acc,linkBook:link}),
+                headers: {'Content-Type':'application/json'}
+            })
+
+        }
+    }
+
+    const Like = document.querySelector('.ti-thumb-up');
+    Like.onclick = (e)=>{
+        if(Like.classList.contains('like'))
+        {
+            Like.classList.remove('like');
+            const res = fetch('/me/dislike',{
+                method:"POST",
+                body:JSON.stringify({acc,linkBook:link}),
+                headers: {'Content-Type':'application/json'}
+            })
+        }
+        else{
+            Like.classList.add('like');
+            const res = fetch('/me/like',{
+                method:"POST",
+                body:JSON.stringify({acc,linkBook:link}),
+                headers: {'Content-Type':'application/json'}
+            })
+        }
+    }
+</script>

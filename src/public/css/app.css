@@ -7,11 +7,23 @@
     height: 672px;
     display: block;
 }
+
+.header-bar{
+    top:0px;
+    position: sticky;
+    z-index: 2;
+}
 #header{
-    background-color:rgba(3, 169, 244, 1);
+    background-color:rgb(26, 206, 234);
     min-width: 1485px;
-    position: fixed;
+    position: sticky;
     z-index: 1;
+}
+
+.first{
+    width: 1472px;
+    height: 45px;
+    background-image: url("https://scontent.fhan7-1.fna.fbcdn.net/v/t1.15752-9/372013712_171000089351710_4040460556296260169_n.png?_nc_cat=100&ccb=1-7&_nc_sid=ae9488&_nc_ohc=ieMURfIA6ikAX-HM_Cp&_nc_ht=scontent.fhan7-1.fna&oh=03_AdRqsIbSCcu9YtpPbIuLIX0Tt8bOhSYKW3yAISPnSHyUfQ&oe=651ACF3F");
 }
 
 #nav {
@@ -67,8 +79,42 @@
     padding: 0 16px;
 }
 
-#nav .icon-down{
+#auth li:hover .subNav{
+    display: flex;
+    width: 100%;
+}
+
+
+#auth .subNav{
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    background-color: white;
+    top :48px;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+#auth .subNav a{
+    color: black;
+    padding: 0 16px;
+}
+
+
+#auth .subNav li:hover a,
+#auth > li:hover > a{
+    color: black;
+    background-color: #ccc;
+    display: block;
+}
+
+#auth .icon-down{
     font-size: 14px;
+}
+
+#auth .subNav a{
+    color: black;
+    padding: 0 16px;
 }
 
 .auth-btn{
@@ -98,7 +144,6 @@
 }
 
 #container{
-    padding-top: 47px;
     height: 100%;
     width: 100%;
 }
@@ -296,10 +341,11 @@ textarea{
     flex-direction: column;
     align-items: center;
     position: relative;
+    cursor: pointer;
 }
 
 .body-page .card .card-img{
-    margin: 5px 0;
+    margin: 5px 5px;
     width: 96%;
     height: 150px;
     display: flex;
@@ -308,6 +354,190 @@ textarea{
     border: 2px solid gray;
 }
 
+.card-name{
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
 .favour{
     background-color: red;
+}
+
+.main-page{
+    position: relative;
+}
+
+.modal-card{
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-main{
+    position: absolute;
+    height: 83%;
+    width: 80%;
+    background-color:rgb(27, 250, 231);
+    box-shadow: inset;
+    top: 50%;
+    left: 60%;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+.open-card{
+    display: flex;
+}
+
+.modal-main .modal-img{
+    max-width: 50%;
+    min-height: 100%;
+    background-size: cover;
+}
+.modal-main .modal-body{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.modal-main .modal-body .modal-name{
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.modal-main .modal-body .modal-des{
+    height: 8em;
+    overflow: hidden; /* Ẩn phần vượt quá kích thước */
+    text-overflow: ellipsis; /* Thêm dấu "..." */
+}
+
+.show-book{
+    display: flex;
+}
+
+.show-book .main-book{
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgba(33, 226, 165,0.6);
+}
+
+.show-book .main-book .name-book{
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.show-book .main-book .favour-book{
+    height: 10%;
+    display: flex;
+    font-size: 35px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.show-book .main-book .des-book{
+    font-size: 15px;
+    margin: 7px;
+    text-indent: 15px;
+    line-height: 20px;
+    text-align: justify;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+.follow-and-like{
+    margin: 0px 5px;
+    float: left;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.follow-and-like .ti-heart,.ti-thumb-up{
+    display: inline-block;
+    width: 28px;
+}
+
+.follow-and-like .ti-thumb-up{
+    color:rgb(57, 16, 237)
+}
+
+.follow-and-like .ti-heart{
+    color:rgb(216, 16, 110)
+}
+
+.like{
+    background-color: aqua;
+}
+
+#nav .ti-home,.ti-book,.ti-save,.ti-marker-alt{
+    padding: 5px;
+}
+
+.main-body{
+    background-image: url("https://phunugioi.com/wp-content/uploads/2021/11/background-book-sach-3.jpg");
+    background-size: cover;
+    width: 1472px;
+    height: 750px;
+    position: relative;
+}
+
+.main-body .btn-explore{
+    position: absolute;
+    background-color: #000;
+    width: 120px;
+    height: 57px;
+    top: 300px;
+    left: 250px;
+}
+
+.main-body .btn-explore:hover{
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.main-body .btn-explore a{
+   text-decoration: none;
+   color: #fff;
+}
+
+.main-page {
+    background-image: url("https://png.pngtree.com/background/20210710/original/pngtree-creative-synthesis-simple-book-education-and-training-background-picture-image_1048845.jpg");
+    width: 1472px;
+    height: 820px;
+    background-size: cover;
+}
+
+#pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.change-page button{
+    margin: 10px;
+}
+
+.change-page .btn-change{
+    height: 30px;
+    width: 71px;
+}
+
+.change-page .btn-change:hover{
+    opacity: 0.8;
+    cursor: pointer     ;
 }
