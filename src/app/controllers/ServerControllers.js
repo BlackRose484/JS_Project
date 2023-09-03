@@ -2,8 +2,8 @@ const Books = require("../models/books");
 const Users = require("../models/users");
 
 class ServerController{
-    show(req,res,next){
-        Books.find({})
+    async show(req,res,next){
+        await Books.find({})
         .lean()
         .then((book)=>{
             res.render('server/mainPage',{book})
