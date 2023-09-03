@@ -33,6 +33,8 @@ app.set('views', path.join(__dirname, 'resoures/views'));
 
 route(app)
 
-app.listen(port, () => {
+const PORT = process.env.PORT||3000
+
+app.listen(PORT, () => {
   console.log(`Example app listening on port ${port}`)
 })
