@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+//const bcrypt = require('bcrypt');
 
 
 const Schema = mongoose.Schema;
@@ -29,11 +29,11 @@ const Users = new Schema(
     }
 )
 
-Users.pre('save',async function(next){
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password,salt);
-    next();
-})
+// Users.pre('save',async function(next){
+//     const salt = await bcrypt.genSalt();
+//     this.password = await bcrypt.hash(this.password,salt);
+//     next();
+// })
 
 Users.statics.login = async function(name,password){
     const user = await this.findOne({acc: name});
