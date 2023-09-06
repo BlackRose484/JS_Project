@@ -332,21 +332,34 @@ textarea{
     justify-content: space-around;
     flex-wrap: wrap;
 }
+.body-page .full-card{
+    width: 19%;
+    height: 280px;
+    margin-bottom: 15px;
+    background-image: url("https://scontent.xx.fbcdn.net/v/t1.15752-9/372410744_871017461202805_8627085485039092009_n.png?_nc_cat=102&ccb=1-7&_nc_sid=ae9488&_nc_ohc=OtIx2JlPdisAX-4-RGv&_nc_ht=scontent.fhan3-1.fna&oh=03_AdR3FCcOabZUpfWYrRSSAlaaYA6pGsxvDnBSd_xfg9TWKA&oe=651CCB11&_nc_fr=fhan3c01");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;   
+}
 .body-page .card{
+    background-position: 0;
     margin: 14px;
-    border: 2px solid gray;
-    width: 18%;
-    height: 220px;
+    border: 2px solid transparent;
+    width: 90%;
+    height: 240px;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     cursor: pointer;
+    background-color: rgba(170, 231, 255, 0.5)
 }
 
 .body-page .card .card-img{
-    margin: 5px 5px;
-    width: 96%;
+    margin: 13px 10px;
+    width: 90%;
     height: 150px;
     display: flex;
     justify-content: center;
@@ -518,7 +531,7 @@ textarea{
 .main-page {
     background-image: url("https://png.pngtree.com/background/20210710/original/pngtree-creative-synthesis-simple-book-education-and-training-background-picture-image_1048845.jpg");
     width: 1472px;
-    height: 820px;
+    height: 960px;
     background-size: cover;
 }
 
@@ -540,4 +553,11 @@ textarea{
 .change-page .btn-change:hover{
     opacity: 0.8;
     cursor: pointer     ;
+}
+
+.slogan{
+    position: absolute;
+    top: 245px;
+    left: 127px;
+    text-shadow: 2px 2px rgba(7, 88, 86, 0.5);
 }

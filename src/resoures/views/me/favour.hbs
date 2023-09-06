@@ -5,7 +5,8 @@
     </div>
     <div id ="itemList" class="body-page">
         {{#each BookLike}}
-        <div class="card">
+        <div class="full-card">
+            <div class="card">
             <img class="card-img" src="http://img.youtube.com/vi/{{this.linkBook}}/maxresdefault.jpg" >
             </img>
             <div data-link="{{this.linkBook}}" class="card-name">
@@ -31,6 +32,7 @@
                 </div>
             </div>
         </div>
+        </div> 
         {{/each}}
     </div>
      <div id="pagination">
@@ -70,11 +72,11 @@
     function displayItems() {
         const start = (currentPage - 1) * itemsPerPage;
         const end = start + itemsPerPage;
-        const items = itemList.getElementsByClassName('card');
+        const items = itemList.getElementsByClassName('full-card');
 
         for (let i = 0; i < items.length; i++) {
             if (i >= start && i < end) {
-                items[i].style.display = 'block'; // Hiển thị mục nếu nằm trong phạm vi trang hiện tại
+                items[i].style.display = 'flex'; // Hiển thị mục nếu nằm trong phạm vi trang hiện tại
             } else {
                 items[i].style.display = 'none'; // Ẩn mục nếu nằm ngoài phạm vi trang hiện tại
             }
@@ -91,7 +93,7 @@
 
     // Sự kiện cho nút "Next"
     nextPageButton.addEventListener('click', () => {
-        const totalItems = itemList.getElementsByClassName('card').length;
+        const totalItems = itemList.getElementsByClassName('full-card').length;
         const totalPages = Math.ceil(totalItems / itemsPerPage);
 
         if (currentPage < totalPages) {
