@@ -8,6 +8,8 @@ const Cookies = require('cookie-parser');
 
 const app = express()
 const port = 3000
+const server = require('http').createServer(app);
+const io = require('socket.io')(server);
 
 db.connect();
 app.use(Cookies())
@@ -33,8 +35,28 @@ app.set('views', path.join(__dirname, 'resoures/views'));
 
 route(app)
 
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
+
+  
+// Lắng nghe sự kiện và xử lý dữ liệu nhận được
+socket.on('message', (message) => {
+  console.log(`Received message: ${message}`);
+});
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id);
+  });
+
+  socket.on('message', (data) => {
+    socket.broadcast.emit('message', data);
+  });
+});
+
+
+
 const PORT = process.env.PORT||3000
 
-app.listen(PORT, () => {
+server.listen(3000, () => {
   console.log(`Example app listening on port ${PORT}`)
 })

@@ -1,0 +1,35 @@
+<h1>Simple WebRTC Text Chat</h1>
+  <div id="chat">
+    <div id="messages"></div>
+    <input type="text" id="input" placeholder="Type your message...">
+  </div>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <script src ="/src/server.js" type="moudule"></script>
+  <script>
+    let socket = io("http://localhost:3000");
+    const messages = document.getElementById('messages');
+    const input = document.getElementById('input');
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const message = input.value.trim();
+        if (message.length > 0) {
+          socket.emit('message', message);
+          addMessage(message, true);
+          input.value = '';
+        }
+      }
+    });
+
+    socket.on('message', (message) => {
+      addMessage(message, false);
+    });
+
+    function addMessage(message, isOwnMessage) {
+      const div = document.createElement('div');
+      div.className = isOwnMessage ? 'own-message' : 'other-message';
+      div.textContent = message;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+  </script>
