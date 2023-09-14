@@ -17,15 +17,20 @@
             </div>
             <div class="modal-card">
                 <div class="modal-main">
-                    <img class="modal-img" src="http://img.youtube.com/vi/{{this.linkBook}}/maxresdefault.jpg">
+                    <div class="modal-img">
+                        <img class="modal-image" src="http://img.youtube.com/vi/{{this.linkBook}}/maxresdefault.jpg"></img>
+                    </div>
 
-                    </img>
                     <div class="modal-body">
                         <div  class="modal-name">
                             <h4>{{this.nameBook}}</h4>
                         </div>
                         <div class="modal-des">
                             <h5>{{this.desBook}}</h5>
+                        </div>
+                        <div class="modal-follow-and-like">
+                            <i class ="ti-thumb-up">{{this.like}}</i>
+                            <i class ="ti-heart">{{this.follow}}</i>
                         </div>
                     </div>
                 </div>
@@ -47,7 +52,6 @@
 <script>
 
     const Cards = document.querySelectorAll('.card');
-    console.log(Cards);
     Cards.forEach(function(card){
         card.onmouseenter = (e)=>{
             card.querySelector('.modal-card').classList.add('open-card')

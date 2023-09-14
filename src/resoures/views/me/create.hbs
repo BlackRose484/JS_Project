@@ -3,21 +3,20 @@
     <div class="post-header">
         Hello {{user}}
         </br>
-       What book do you would like to introduce??
+       What video do you would like to introduce??
     </div>
     <div class="post-body">
         <div class="form-group">
-            <label for="" class="input-label">Name of book</label>
+            <label for="" class="input-label">Name of video</label>
             <input type="text" name = "nameBook" class="modal-input book-name">
         </div>
         <div class="form-group">
-            <label for="" class="input-label">Link of book</label>
+            <label for="" class="input-label">Id of video</label>
             <input type="text" name = "linkBook" class="modal-input book-link">
             <span class ="error-book errors"></span>
         </div>
         <div class="form-group">
-            <label for="" class="input-label">Description of your book
-</label>
+            <label for="" class="input-label">Description of your video</label>
             <textarea type="text" name = "desBook" class="modal-input book-des"></textarea>
         </div>
         <div class="modal-submit">
@@ -49,7 +48,7 @@
             const data = await res.json();
             if(data.acc)
             {
-                console.log("Ok");
+                location.assign("/server/show");
             }
             if(data.error)
             {
@@ -62,8 +61,6 @@
         catch(err)
         {
 
-        }
-
-        
+        }    
     }
 </script>

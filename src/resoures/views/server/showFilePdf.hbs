@@ -1,0 +1,92 @@
+
+<div data-acc="{{user}}" class="show-book">
+    <div class="video-book">
+        <iframe src="/pdf/{{newCurBook.filename}}" width="1200px" height="900px"></iframe>
+    </div>
+    <div class="main-book">
+        <div class="name-book">
+            <h1>{{newCurBook.title}}</h1>
+        </div>
+        <div class="favour-book ">
+            <i data-like="{{newCurBook.isLike}}" class="ti-thumb-up">{{newCurBook.like}}</i>
+            <i data-have="{{newCurBook.isHave}}" data-link="{{newCurBook.filename}}" class = 'ti-heart'>{{newCurBook.follow}}</i>
+        </div>
+        <div class="des-book">
+            <p>{{newCurBook.desPdf}}</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    const isHave = document.querySelector('.ti-heart').getAttribute('data-have');
+    const isLike = document.querySelector('.ti-thumb-up').getAttribute('data-like');
+    const acc = document.querySelector('.show-book').getAttribute('data-acc');
+    const link = document.querySelector('.ti-heart').getAttribute('data-link');
+    if(isHave==="true")
+    {
+        document.querySelector('.ti-heart').classList.add('favour')
+    }
+    else 
+    {
+        console.log("No")
+    }
+    if(isLike==="true")
+    {
+        document.querySelector('.ti-thumb-up').classList.add('like')
+    }
+
+    const Favour = document.querySelector('.ti-heart');
+    Favour.onclick = (e)=>{
+        if(Favour.classList.contains('favour'))
+        {
+            document.querySelector('.ti-heart').classList.remove('favour');
+            const res = fetch('/me/removeFavourPdf',{
+                method:"POST",
+                body:JSON.stringify({acc,linkPdf:link}),
+                headers: {'Content-Type':'application/json'}
+            })
+            let nFollow = +Favour.textContent;
+            nFollow--;
+            Favour.textContent = nFollow
+        }
+        else
+        {
+            document.querySelector('.ti-heart').classList.add('favour');
+            const res = fetch('/me/addFavourPdf',{
+                method:"POST",
+                body:JSON.stringify({acc,linkPdf:link}),
+                headers: {'Content-Type':'application/json'}
+            })
+            let nFollow = +Favour.textContent;
+            nFollow++;
+            Favour.textContent = nFollow
+        }
+    }
+
+    const Like = document.querySelector('.ti-thumb-up');
+    Like.onclick = (e)=>{
+        if(Like.classList.contains('like'))
+        {
+            Like.classList.remove('like');
+            const res = fetch('/me/dislikePdf',{
+                method:"POST",
+                body:JSON.stringify({acc,linkPdf:link}),
+                headers: {'Content-Type':'application/json'}
+            })
+            let nLike = +Like.textContent;
+            nLike--;
+            Like.textContent = nLike;
+        }
+        else{
+            Like.classList.add('like');
+            const res = fetch('/me/likePdf',{
+                method:"POST",
+                body:JSON.stringify({acc,linkPdf:link}),
+                headers: {'Content-Type':'application/json'}
+            })
+            let nLike = +Like.textContent;
+            nLike++;
+            Like.textContent = nLike;
+        }
+    }
+</script>

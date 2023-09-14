@@ -38,12 +38,6 @@ route(app)
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
 
-  
-// Lắng nghe sự kiện và xử lý dữ liệu nhận được
-socket.on('message', (message) => {
-  console.log(`Received message: ${message}`);
-});
-
   socket.on('disconnect', () => {
     console.log('User disconnected:', socket.id);
   });
@@ -52,6 +46,7 @@ socket.on('message', (message) => {
     socket.broadcast.emit('message', data);
   });
 });
+
 
 
 

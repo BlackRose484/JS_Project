@@ -6,10 +6,38 @@
                 <!-- Nav -->
                 <ul id="nav">
                         <li><a href="/"><i class = "ti-home"></i>Home</a></li>
-                        <li><a href="/server/show"><i class = "ti-book"></i>All Book</a></li>
-                        <li><a href="/me/{{user}}"><i class = "ti-save"></i>Favourite</a></li>
+                        <li>
+                            <a href="">
+                                 <i class = "ti-book"></i>
+                                 All Book
+                            </a>
+                           
+                            <ul class = "subNav">
+                                <li><a href="/server/show">Video</a></li>
+                                <li><a href="/server/showPdf">Book</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="">
+                            <i class = "ti-save"></i>
+                            Favourite
+                            </a>
+                            <ul class="subNav">
+                                <li><a href="/me/{{user}}">Video</a></li>
+                                <li><a href="/me/PdfFavour/{{user}}">Book</a></li>
+                            </ul>
+
+                        </li>
                         <li><a href="/chat/chatRoom">Chat</a></li>
-                        <li><a href="/me/postForm"><i class="ti-marker-alt"></i>Post</a></li>
+                        <li>
+                            <a href=""><i class="ti-marker-alt"></i>
+                                Post
+                            </a>
+                            <ul class="subNav">
+                                <li><a href="/me/postForm">Video</a></li>
+                                <li><a href="/me/uploadForm">Book</a></li>
+                            </ul>
+                        </li>
                         <li>
                             <a href="">
                                 More

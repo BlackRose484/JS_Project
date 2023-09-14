@@ -6,6 +6,7 @@ const {Protect,CheckUser} = require('../app/middlewares/AuthMiddleware');
 
 function route(app)
 {
+
   app.get('*',CheckUser);
   app.use('/auth',AuthController);
   app.use('/server',ServerController);

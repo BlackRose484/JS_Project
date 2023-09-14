@@ -1,0 +1,41 @@
+
+    <form action="/me/uploads" method="POST" enctype="multipart/form-data" class ="form-pdf">
+
+        <div class="form-main">
+            <div class="form-header">
+                Hello {{user}}
+                </br>
+                What book do you would like to introduce??
+            </div>
+            <div class="form-body">
+                <div class="form-group">
+                    <label for="" class="input-label">Name of book</label>
+                    <input type="text" name="title" placeholder="Title" class="modal-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="input-label">File book</label>
+                    <input type="file" name="pdfFile" accept=".pdf"class="modal-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="" class="input-label">Description of your book</label>
+                    <textarea cols="30" rows="10" name = "desBook"class="modal-input"></textarea>
+                </div>
+
+                <div class="modal-submit">
+                    <button type="submit" class = "submit">Upload Book</button> 
+                </div>
+
+            </div>
+
+        </div>
+        
+        <input type="text" name="user" value="{{user}}" hidden="true" placeholder="Title">
+        
+        <input type="text" name="author" value="{{user}}" hidden="true" placeholder="Author"> 
+        
+               
+    </form>
+
+    

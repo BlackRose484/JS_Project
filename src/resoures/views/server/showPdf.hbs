@@ -1,0 +1,85 @@
+<div class="main-page">
+    <div data-acc = "{{user}}"  class="header-page">
+        Welcome {{user}}
+    </div>
+    <ul id = "itemList" class="pdf-page">
+        {{#each pdf}}
+        <div class="pdf">
+            <div class="full-pdf">
+            <img class="img-pdf"></img>
+            <div data-link = "{{this.filename}}" class="pdf-name">
+                <h3>{{this.title}}</h3>
+            </div>
+            <div class="follow-and-like">
+                <i class ="ti-thumb-up">{{this.like}}</i>
+                <i class ="ti-heart">{{this.follow}}</i>
+            </div>
+        </div>
+        </div>
+        {{/each}}
+    </ul>
+     <div id="pagination">
+        <div class="change-page">
+            <button id="prevPage" class ="btn-change">Previous</button>
+            <button id="nextPage" class="btn-change">Next</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+    const Pdfs = document.querySelectorAll('.pdf');
+    Pdfs.forEach(function(pdf){
+        pdf.onclick = (e)=>{
+            const link = pdf.querySelector('.pdf-name').getAttribute('data-link');
+            const curAcc = document.querySelector('.header-page').getAttribute('data-acc');
+            location.assign(`showPdfFile/${curAcc}/${link}`)
+        }
+    })
+
+    const itemList = document.getElementById('itemList');
+    const prevPageButton = document.getElementById('prevPage');
+    const nextPageButton = document.getElementById('nextPage');
+
+    const itemsPerPage = 15; // Số mục hiển thị trên mỗi trang
+    let currentPage = 1; // Trang hiện tại
+
+    // Hàm để hiển thị các mục tương ứng trên trang
+    function displayItems() {
+        const start = (currentPage - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const items = itemList.getElementsByClassName('full-pdf');
+
+        for (let i = 0; i < items.length; i++) {
+            if (i >= start && i < end) {
+                items[i].style.display = 'flex'; // Hiển thị mục nếu nằm trong phạm vi trang hiện tại
+            } else {
+                items[i].style.display = 'none'; // Ẩn mục nếu nằm ngoài phạm vi trang hiện tại
+            }
+        }
+    }
+
+    // Sự kiện cho nút "Previous"
+    prevPageButton.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            displayItems();
+        }
+    });
+
+    // Sự kiện cho nút "Next"
+    nextPageButton.addEventListener('click', () => {
+        const totalItems = itemList.getElementsByClassName('full-pdf').length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+        if (currentPage < totalPages) {
+            currentPage++;
+            displayItems();
+        }
+    });
+
+    // Hiển thị trang đầu tiên ban đầu
+    displayItems();
+
+</script>

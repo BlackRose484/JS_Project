@@ -47,6 +47,9 @@
                 body:JSON.stringify({acc,linkBook:link}),
                 headers: {'Content-Type':'application/json'}
             })
+            let nFollow = +Favour.textContent;
+            nFollow--;
+            Favour.textContent = nFollow
         }
         else
         {
@@ -56,7 +59,9 @@
                 body:JSON.stringify({acc,linkBook:link}),
                 headers: {'Content-Type':'application/json'}
             })
-
+            let nFollow = +Favour.textContent;
+            nFollow++;
+            Favour.textContent = nFollow
         }
     }
 
@@ -70,6 +75,10 @@
                 body:JSON.stringify({acc,linkBook:link}),
                 headers: {'Content-Type':'application/json'}
             })
+            let nLike = +Like.textContent;
+            nLike--;
+            Like.textContent = nLike;
+            
         }
         else{
             Like.classList.add('like');
@@ -78,6 +87,9 @@
                 body:JSON.stringify({acc,linkBook:link}),
                 headers: {'Content-Type':'application/json'}
             })
+            let nLike = +Like.textContent;
+            nLike++;
+            Like.textContent = nLike;
         }
     }
 </script>
