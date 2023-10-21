@@ -1,0 +1,179 @@
+
+<div class="form-infor">
+    <form data-acc = {{user}} id="formInfo">
+        <div class="info-page">
+    <div class="info-body">
+        <div class="info-avatar">
+        </div>
+        <div class="info-detail">
+            <div class="form-group">
+                <label for = "fullname" class="form-label">Full name</label>
+                <input class="form-control" id="fullname" name = "fullname" rules = "require" type="text" placeholder="" value="{{InforUser.fullname}}">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for = "birthday" class="form-label">Birthday</label>
+                <input class="form-control" id="birthday" name = "birthday" rules = "require" type="date" placeholder="" value="{{InforUser.birthday}}">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for = "gender" class="form-label" >Gender</label>
+                <div>
+                <label for="male">Nam</label>
+                <input type="radio" id="male" name="gender" value="male" rules = "require">
+
+                <label for="female">Nữ</label>
+                <input type="radio" id="female" name="gender" value="female" rules = "require">
+                </div>       
+                <span class="form-message"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for = "university" class="form-label">University</label>
+                <select class="form-control" name="university" id="university" rules = "require">
+                    <option class="form-control" value="UET">UET</option>
+                    <option class="form-control" value="ULIS">ULIS</option>
+                </select>
+                <span class="form-message"></span>
+            </div>
+            <button class="form-submit">Update</button>
+        </div>
+    </div>
+</div>
+    </form>
+</div>
+
+
+
+
+<script>
+    function Validator(formSelector) {
+        function getParrent(element,selector)
+        {
+            while(element.parentElement)
+            {
+                if(element.parentElement.matches(selector))
+                {
+                    return element.parentElement
+                }
+                element = element.parentElement
+            }
+        }
+
+        let formRules = {}
+
+        let ValidatorRules = {
+            require: (value) => {
+                return value ? undefined : "Please enter"
+            }
+        }
+
+        let formElement = document.querySelector(formSelector);
+        if (formElement) {
+            let inputs = formElement.querySelectorAll("[name][rules]")
+            for (let input of inputs) {
+                let rules = input.getAttribute("rules").split("|")
+                for (let rule of rules) {
+                    let isHaveKey = rule.includes(":")
+                    let ruleInfo
+                    if (isHaveKey)
+                    {
+                        ruleInfo = rule.split(":")
+                        rule = ruleInfo[0]
+                    }
+                    let ruleFunc = ValidatorRules[rule]
+                    if (isHaveKey)
+                    {
+                        ruleFunc = ruleFunc(ruleInfo[1])
+                    }
+                    if(Array.isArray(formRules[input.name]))
+                    {
+                        formRules[input.name].push(ruleFunc)
+                    }
+                    else formRules[input.name] = [ruleFunc]
+                }
+
+                input.onblur = HandleErrorMes;
+                input.oninput = HandleClearErrorMes;
+            }
+        }
+
+        function HandleErrorMes(event){
+            
+            let rules = formRules[event.target.name]
+            
+            let ErrorMes 
+            for(rule of rules)
+            {
+                ErrorMes = rule(event.target.value);
+                if(ErrorMes)
+                {
+                    break;
+                }
+            }
+
+            if(ErrorMes)
+            {
+                let ErrorInput = getParrent(event.target,'.form-group')
+                if(ErrorInput)
+                {
+                    let point = ErrorInput.querySelector('.form-message')
+                    point.innerText = ErrorMes
+                    ErrorInput.classList.add("invalid")
+                }
+            }
+            return ErrorMes;
+        }
+
+        function HandleClearErrorMes(event)
+        {
+            let ErrorInput = getParrent(event.target,'.form-group')
+            if(ErrorInput.classList.contains('invalid'))
+            {
+                let point = ErrorInput.querySelector('.form-message')
+                point.innerText = ''
+                ErrorInput.classList.remove("invalid")
+            }
+        }
+
+        formElement.onsubmit = async (e) => {
+            e.preventDefault();
+            let FormValue = {}
+            let inputs = formElement.querySelectorAll("[name][rules]")
+            let isValid = true
+            for (let input of inputs) {
+                if (HandleErrorMes({target : input})) {
+                    isValid = false
+                }
+                if (input.type == "radio") {
+                    let val = formElement.querySelector('input[name="'+input.name+'"]:checked')
+                    if (val) {
+                        FormValue[input.name] = val.value
+                    } else {
+                        isValid = false
+                    }
+                } else FormValue[input.name] = input.value
+            }
+            if (isValid) {
+                const getAcc = document.querySelector("#formInfo").getAttribute('data-acc')
+                FormValue.acc = getAcc
+                const res = await fetch('/me/fixInfo',{
+                method: 'POST',
+                body: JSON.stringify(FormValue),
+                headers: {'Content-Type':'application/json'}
+                })
+
+                if(res) {
+                    let val = "/me/showInfo/" + getAcc
+                    location.assign(val)
+                }
+                
+            } else {
+                console.log("No")
+            }
+        }
+    }
+    Validator("#formInfo")
+</script>

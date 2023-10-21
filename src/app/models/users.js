@@ -5,10 +5,18 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Users = new Schema(
     {
+        fullname: {
+            type : String,
+            default: ""
+        },
         acc:{
             type: String,
             required: [true,"Please enter acc"],
             unique:true,
+        },
+        birthday: {
+            type : Date,
+            default: ""
         },
         password:{
             type:String,
@@ -21,6 +29,14 @@ const Users = new Schema(
         },
         likeBook:{
             type:String,
+            default:""
+        },
+        university: {
+            type: String,
+            default:""
+        },
+        gender: {
+            type : String,
             default:""
         }
     },

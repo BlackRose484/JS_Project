@@ -30,7 +30,12 @@ route.post('/dislike',MeController.disLikeBook);
 route.post('/likePdf',MeController.likePdf);
 route.post('/dislikePdf',MeController.disLikePdf);
 
+route.get('/showInfo/:acc',MeController.ShowInformation);
+route.get('/formFixInfor/:acc',MeController.ShowFormFixInfor);
+route.post('/fixInfo',MeController.FixInformation);
+
 route.get('/PdfFavour/:slug',MeController.favourPdf);
 route.get('/:slug',MeController.favourBook);
+
 
 module.exports = route;

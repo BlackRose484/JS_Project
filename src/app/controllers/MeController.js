@@ -27,7 +27,6 @@ class MeController{
             if(userOfBook)
             {
                 const favour = userOfBook.favour+ linkBook+'/';
-                console.log(favour);
                 await Users.findOneAndUpdate({acc:acc},{favour:favour});
                 res.status(200).json({acc});
             }
@@ -59,8 +58,6 @@ class MeController{
         };
 
         const user = req.body.user;
-        console.log(user);
-        console.log(PdfData);
 
         try {
             const newPdf = await Pdfs.create(PdfData);
@@ -68,7 +65,6 @@ class MeController{
             if(userOfBook)
             {
                 const favour = userOfBook.favour+ req.file.filename+'/';
-                console.log(favour);
                 await Users.findOneAndUpdate({acc:user},{favour:favour});
             }
             else res.status(404).json({err:"Loi acc"})
@@ -91,7 +87,6 @@ class MeController{
                 const Book = await Books.findOne({linkBook:book}).lean();
                 if(Book)BookLike.push(Book);
             }
-            console.log(BookLike);
             res.render('me/favour',{BookLike});
         }
         else res.render('me/favour');
@@ -315,6 +310,49 @@ class MeController{
         }
     }
 
+    async ShowInformation(req,res,next) {
+        const acc = req.params.acc
+        const user = await Users.findOne({acc:acc}).lean();
+        if(user) {
+            const InforUser = {
+                acc: user.acc,
+                fullname : user.fullname,
+                birthday : user.birthday,
+                gender : user.gender,
+                university: user.university
+            }
+            res.render("me/showInfor",{InforUser})
+        }     
+    }
+
+    async ShowFormFixInfor(req,res,next) {
+        const acc = req.params.acc
+        const user = await Users.findOne({acc:acc}).lean();
+        if(user) {
+            const InforUser = {
+
+                fullname : user.fullname,
+                birthday : user.birthday,
+                gender : user.gender,
+                university: user.university
+            }
+            res.render("me/formFixInfor",{InforUser})
+        }     
+    }
+
+    async FixInformation (req, res, next) {
+        const {fullname, birthday, gender, university, acc} = req.body
+        try {
+            const user = await Users.findOne({acc:acc}).lean();
+            if (user) {
+                await Users.findOneAndUpdate({acc:acc},{fullname,birthday,gender, university});
+            }
+            res.status(200).json({acc});
+        }
+        catch (e) {
+            console.log(e)
+        }
+    }
 }
 
 module.exports = new MeController;

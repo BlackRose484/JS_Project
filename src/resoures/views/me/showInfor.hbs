@@ -1,0 +1,32 @@
+<div class="info-page">
+    <div class="info-body">
+        <div class="info-avatar">
+        </div>
+        <div class="info-detail">
+            <div class="form-group">
+                <label for = "fullname" class="form-label">Full name</label>
+                <input class="form-control" id="fullname" name = "fullname" rules = "require" type="text" placeholder="" value="{{InforUser.fullname}}" disabled>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for = "birthday" class="form-label">Birthday</label>
+                <input class="form-control" id="birthday" name = "birthday" rules = "require" type="text" placeholder="" value="{{InforUser.birthday}}" disabled>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-group">
+                <label for = "gender" class="form-label">Gender</label>
+                <input class="form-control" id="gender" name = "gender" rules = "require" type="text" placeholder="" value="{{InforUser.gender}}" disabled>
+                <span class="form-message"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for = "university" class="form-label">University</label>
+                <input class="form-control" id="university" name = "university" rules = "require" type="text" placeholder="" value="{{InforUser.university}}" disabled>
+                <span class="form-message"></span>
+            </div>
+            <a href="/me/formFixInfor/{{InforUser.acc}}"><button class="form-submit">Update</button></a>
+        </div>
+    </div>
+</div>

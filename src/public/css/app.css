@@ -94,7 +94,7 @@
     align-items: center;
     position: absolute;
     background-color: white;
-    top :48px;
+    top :45px;
     box-shadow: 0 0 10px rgb(0, 0, 0);
 }
 
@@ -684,4 +684,97 @@ modal-card
 .header-track {
     background-color: rgb(131 222 30 / 61%);
 }
+
+.info-page {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.info-body {
+    position: relative;
+    width: 60%;
+    height: 60%;
+    display: flex;
+    flex-direction: row;
+    border: 2px solid #000;
+}
+
+.info-body .info-avatar {
+    width: 40%;
+    margin: 15px;
+    background-image: url(https://1.bp.blogspot.com/-CV8fOXMMw60/YZ-UJ4X9sAI/AAAAAAAACMc/2Svet97exjgNdJ9CeTKUU3OuA-mnCQEzwCLcBGAsYHQ/s595/3a.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.info-body .info-detail {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-label {
+    font-weight: 700;
+    padding-bottom: 6px;
+    line-height: 2.1rem;
+  }
+
+  .form-label,
+  .form-message {
+    text-align: left;
+  }
+
+.form-control, .form-control option {
+    height: 40px;
+    padding: 8px 12px;
+    border: 1px solid #b3b3b3;
+    border-radius: 3px;
+    outline: none;
+}
+
+.form-control:hover {
+    border-color: #1dbfaf;
+  }
+  
+  .form-group.invalid .form-control {
+    border-color: #f33a58;
+  }
+  
+  .form-group.invalid .form-message {
+    color: #f33a58;
+  }
+  
+  .form-submit {
+    outline: none;
+    background-color: #1dbfaf;
+    margin-top: 12px;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    width: 100%;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .form-submit:hover {
+    background-color: #1ac7b6;
+  }
+  
+  .spacer {
+    margin-top: 36px;
+  }
+  
 
