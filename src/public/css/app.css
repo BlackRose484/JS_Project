@@ -23,11 +23,11 @@
 .first{
     width: 1472px;
     height: 45px;
-    background-image: url("https://scontent.fhan7-1.fna.fbcdn.net/v/t1.15752-9/372013712_171000089351710_4040460556296260169_n.png?_nc_cat=100&ccb=1-7&_nc_sid=ae9488&_nc_ohc=ieMURfIA6ikAX-HM_Cp&_nc_ht=scontent.fhan7-1.fna&oh=03_AdRqsIbSCcu9YtpPbIuLIX0Tt8bOhSYKW3yAISPnSHyUfQ&oe=651ACF3F");
+    background-image: url("https://scontent.fhan3-3.fna.fbcdn.net/v/t1.15752-9/372013712_171000089351710_4040460556296260169_n.png?_nc_cat=100&ccb=1-7&_nc_sid=8cd0a2&_nc_ohc=K0Uw0BQ2xe8AX_Bi9DX&_nc_ht=scontent.fhan3-3.fna&oh=03_AdQ_9suhnndOvFKu-tmcxfDQ29gm5YbCOZtbAxsY1c7DOQ&oe=655AF83F");
 }
 
 #nav {
-    display: inline-block;
+    display: inline-flex;
 
 }
 
@@ -45,8 +45,9 @@
 }
 
 #nav li a{
-     color: white;
+     color: rgba(14, 14, 14, 0.779);
      text-decoration: none;
+     font-weight: 550;
      line-height: 46px;
      padding: 0 24px;
 }
@@ -117,6 +118,7 @@
 #auth .subNav a{
     color: black;
     padding: 0 16px;
+    text-transform: none;
 }
 
 .auth-btn{
@@ -132,12 +134,14 @@
 }
 
 #auth li a{
-    color: #fff;
+    color: rgba(14, 14, 14, 0.779);
     text-decoration: none;
+    font-weight: 550;
     line-height: 46px;
     padding: 0 24px;
     text-transform: uppercase;
 }
+
 
 #auth li a:hover{
     color: #000;
@@ -333,6 +337,7 @@ textarea{
     flex-direction: row;
     justify-content: space-around;
     flex-wrap: wrap;
+    margin-top: 15px;
 }
 .body-page .full-card{
     width: 19%;
@@ -348,7 +353,7 @@ textarea{
 .body-page .card{
     background-position: 0;
     margin: 14px;
-    border: 2px solid transparent;
+    border: 1px solid;
     width: 90%;
     height: 240px;
     display: flex;
@@ -356,7 +361,8 @@ textarea{
     align-items: center;
     position: relative;
     cursor: pointer;
-    background-color: rgba(170, 231, 255, 0.5)
+    background-color: rgb(170 255 245 / 50%);
+    border-radius: 13px;
 }
 
 .body-page .card .card-img{
@@ -370,7 +376,7 @@ textarea{
 }
 
 .card-name{
-    height: 70px;
+    height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -386,13 +392,14 @@ textarea{
 
 .modal-card{
     position: absolute;
+    border-radius: 13px;
     top:0;
     left: 0;
     right: 0;
     bottom: 0;
     height: 100%;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.15);
+    background-color: rgb(170 255 245 / 60%);
     display: none;
     justify-content: center;
     align-items: center;
@@ -529,7 +536,7 @@ textarea{
 .like{
     background-color: aqua;
 }
-
+modal-card
 #nav .ti-home,.ti-book,.ti-save,.ti-marker-alt{
     padding: 5px;
 }
@@ -673,3 +680,8 @@ textarea{
     font-weight: 800;
     border-radius: 14px;
 }
+
+.header-track {
+    background-color: rgb(131 222 30 / 61%);
+}
+

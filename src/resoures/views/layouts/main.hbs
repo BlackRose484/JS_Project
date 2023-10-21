@@ -18,4 +18,32 @@
     </div>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.js"></script>
+<script>
+
+    localStorage.clear();
+    const liElements = document.querySelectorAll("#nav li");
+    liElements.forEach(li => {
+        console.log("Ok")
+        li.addEventListener("click", () => {
+            
+            // Đặt thuộc tính data-viewed thành "true" cho phần tử hiện tại
+            li.dataset.viewed = "true";
+
+            // Lưu trạng thái đã chọn vào Local Storage
+            sessionStorage.setItem('selectedLi', li.id); // Sử dụng id của phần tử làm key
+            console.log(" Ok")
+        });
+    });
+
+    // Kiểm tra và khôi phục trạng thái đã chọn khi trang tải
+    const selectedLiId = sessionStorage.getItem('selectedLi');
+    if (selectedLiId) {
+        const selectedLi = document.getElementById(selectedLiId);
+        if (selectedLi) {
+            selectedLi.dataset.viewed = "true";
+            selectedLi.classList.add("header-track")
+        }
+    };
+    
+</script>
 </html>

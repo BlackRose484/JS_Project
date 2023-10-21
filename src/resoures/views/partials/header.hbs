@@ -5,48 +5,48 @@
     <div id="header">
                 <!-- Nav -->
                 <ul id="nav">
-                        <li><a href="/"><i class = "ti-home"></i>Home</a></li>
-                        <li>
-                            <a href="">
+                        <li data-viewed="false" id ='header-home'><a href="/"><i class = "ti-home"></i>Home</a></li>
+                        <li data-viewed="false" id ='header-all'>
+                            <a href="/server/show">
                                  <i class = "ti-book"></i>
                                  All Book
                             </a>
                            
                             <ul class = "subNav">
-                                <li><a href="/server/show">Video</a></li>
-                                <li><a href="/server/showPdf">Book</a></li>
+                                <li data-viewed="false"><a href="/server/show">Video</a></li>
+                                <li data-viewed="false"><a href="/server/showPdf">Book</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="">
+                        <li data-viewed="false" id ='header-favour'>
+                            <a href="/me/{{user}}">
                             <i class = "ti-save"></i>
                             Favourite
                             </a>
                             <ul class="subNav">
-                                <li><a href="/me/{{user}}">Video</a></li>
-                                <li><a href="/me/PdfFavour/{{user}}">Book</a></li>
+                                <li data-viewed="false"><a href="/me/{{user}}">Video</a></li>
+                                <li data-viewed="false"><a href="/me/PdfFavour/{{user}}">Book</a></li>
                             </ul>
 
                         </li>
-                        <li><a href="/chat/chatRoom">Chat</a></li>
-                        <li>
-                            <a href=""><i class="ti-marker-alt"></i>
+                        <li data-viewed="false" id ='header-chat'><a href="/chat/chatRoom">Chat</a></li>
+                        <li data-viewed="false" id ='header-post'>
+                            <a href="/me/postForm"><i class="ti-marker-alt"></i>
                                 Post
                             </a>
                             <ul class="subNav">
-                                <li><a href="/me/postForm">Video</a></li>
-                                <li><a href="/me/uploadForm">Book</a></li>
+                                <li data-viewed="false"><a href="/me/postForm">Video</a></li>
+                                <li data-viewed="false"><a href="/me/uploadForm">Book</a></li>
                             </ul>
                         </li>
-                        <li>
+                        <li data-viewed="false" id ='header-more'>
                             <a href="">
                                 More
                                 <i class="icon-down ti-angle-down"> </i>
                             </a>
                             <ul class="subNav">
-                                <li><a href="">Name</a></li>
-                                <li><a href="">Phone</a></li>
-                                <li><a href="">Address</a></li>
+                                <li data-viewed="false"><a href="">Name</a></li>
+                                <li data-viewed="false"><a href="">Phone</a></li>
+                                <li data-viewed="false"><a href="">Address</a></li>
                             </ul>
                         </li>
                 </ul>
@@ -79,7 +79,7 @@
     const signErrPass = document.querySelector('.error-pass-sign');
      const login = document.getElementById('login');
 
-const signup = document.getElementById('regist');
+    const signup = document.getElementById('regist');
     
     login.addEventListener("click",(e)=>{
         e.stopPropagation();
@@ -88,5 +88,32 @@ const signup = document.getElementById('regist');
     signup.addEventListener('click',(e)=>{
         e.stopPropagation();
     })
-    
+  
+    const liElements1 = document.querySelectorAll("#nav li");
+    console.log(liElements1)
+    liElements1.forEach(li => {
+        console.log("Ok")
+        li.addEventListener("click", () => {
+            // Đặt thuộc tính data-viewed thành "true" cho phần tử hiện tại
+            li.dataset.viewed = "true";
+
+            // Lưu trạng thái đã chọn vào Local Storage
+            localStorage.setItem('selectedLi', li.id); // Sử dụng id của phần tử làm key
+            console.log(" Ok")
+        });
+    });
+
+    // Kiểm tra và khôi phục trạng thái đã chọn khi trang tải
+    const selectedLiId1 = localStorage.getItem('selectedLi');
+    if (selectedLiId1) {
+        const selectedLi = document.getElementById(selectedLiId1);
+        if (selectedLi) {
+            selectedLi.dataset.viewed = "true";
+            selectedLi.classList.add("header-track")
+        }
+    } 
+    if ( selectedLiId1 == null) {
+    sessionStorage.setItem('selectedLi',"header-home");
+    };
+   
 </script>
