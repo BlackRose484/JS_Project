@@ -4,7 +4,8 @@
     box-sizing: border-box;
 }
 .app{
-    height: 672px;
+    height: 100vh;
+    width: 100vw;
     display: block;
 }
 
@@ -28,7 +29,6 @@
 
 #nav {
     display: inline-flex;
-
 }
 
 #nav > li{
@@ -37,6 +37,7 @@
 
 #nav li {
     position: relative;
+    z-index: 20;
 }
 
 #nav>li>a {
@@ -53,7 +54,10 @@
 }
 
 #nav li:hover .subNav{
-    display: block;
+    visibility: visible;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+    opacity: 1;
+    transform: translateY(0);
 }
 
 
@@ -61,13 +65,17 @@
     list-style-type: none;
 }
 
-#nav .subNav{
-    display: none;
+#nav li .subNav{
+    visibility: hidden;
+    display: block;
     position: absolute;
     background-color: white;
+    opacity: 0;
+    z-index: -1;
     width: 100%;
     top :45px;
-    box-shadow: 0 0 10px rgb(0, 0, 0);
+    transform: translateY(-50px);
+    transition: opacity 1.15s ease-in-out, transform 0.6s ease-in;
 }
 #nav .subNav li:hover a,
 #nav > li:hover > a{
@@ -182,6 +190,14 @@
     animation: FadeIn 0.5s ;
 }
 
+.modal .modal-verify,.modal-forget {
+    position: relative;
+    border-radius: 14px;
+    width: 500px;
+    max-width: calc(100%-32px);
+    min-height: 200px;
+    background-color: white;
+}
 .modal-close{
     position: absolute;
     padding: 12px;
@@ -218,7 +234,7 @@
 }
 
 .modal-input{
-    margin-bottom: 5pxpx;
+    margin-bottom: 5px;
     font-size: 15px;
     width: 97%;
     border: 2px solid #ccc;
@@ -353,7 +369,6 @@ textarea{
 .body-page .card{
     background-position: 0;
     margin: 14px;
-    border: 1px solid;
     width: 90%;
     height: 240px;
     display: flex;
@@ -363,6 +378,11 @@ textarea{
     cursor: pointer;
     background-color: rgb(170 255 245 / 50%);
     border-radius: 13px;
+    border: 1px solid #000;
+}
+
+.body-page .card:hover{
+    animation: outlineAnimation 10s infinite;
 }
 
 .body-page .card .card-img{
@@ -776,5 +796,98 @@ modal-card
   .spacer {
     margin-top: 36px;
   }
-  
 
+
+  #toast {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    z-index: 999999;
+  }
+
+  
+  .toast{
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 2px;
+    padding: 20px 0;
+    min-width: 400px;
+    margin-bottom: 16px;
+    max-width: 450px;
+    border-left: 4px solid;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.08);
+    transition: all linear 0.3s;
+}
+
+.toast--active {
+    visibility: visible;
+    animation: SlideOn ease .3s, FadeOut linear 1s 3s forwards;
+}
+
+.toast__icons{
+    padding: 0 16px;
+    font-size: 24px;
+    font-weight: 600;
+
+}
+.toast__body{
+    flex-grow: 1;
+    padding: 0 16px;
+}
+
+.toast__title{
+font-size: 16px;
+font-weight: 600 ;
+}
+.toast__mes{
+    font-size: 14px;
+    margin-top: 6px;
+
+}
+.toast__close{
+    padding:0 16px;
+    font-size: 24px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.toast--success{
+    border-color: green;
+}
+.toast--success .toast__icons{
+    color: green;
+}
+
+@keyframes SlideOn{
+    from {
+        opacity: 0;
+        transform: translateX(calc(100% + 32px));
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+}
+
+@keyframes FadeOut{
+    to {
+        opacity: 0;
+    }
+}
+
+.toast--warn{
+    border-color: yellow;;
+}
+.toast--warn .toast__icons{
+    color: yellow;
+}
+
+.toast--error{
+    border-color: red;;
+}
+
+.toast--error .toast__icons{
+    color: red;
+}

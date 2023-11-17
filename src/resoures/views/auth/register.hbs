@@ -1,52 +1,246 @@
 <form class="modal" id = "modal-register">
-        <div class="modal-register">
-            <div class="modal-close">
-            <i class = "ti-close"></i>
+    <div class="modal-register">
+        <div class="modal-close">
+        <i class = "ti-close"></i>
         </div>
         <div class="modal-header">
-           Register
+        Register
         </div>
         <div class="modal-body">
             <div class="modal-group">
                 <label for="" class="modal-label">Account</label>
-                <input type="text" name = "user" class="modal-input">
-                <span class="error-acc errors"></span>
+                <input type="text" name = "user" class="modal-input" rules = "require|email">
+                <span class="error-acc errors modal-message"></span>
             </div>
 
             <div class="modal-group">
                 <label for="" class="modal-label">Password</label>
-                <input type="password" name = "password" class="modal-input">
-                <span class="error-pass errors"></span>
+                <input type="password" name = "password" class="modal-input" rules = "require|min:6">
+                <span class="error-pass errors modal-message"></span>
             </div>
             
-
-            <label for="" class="modal-label">Retype Password</label>
-            <input type="text" name = "re-password" class="modal-input">
-
+            <div class="modal-group">
+                <label for="" class="modal-label">Retype Password</label>
+                <input type="text" name = "re-password" class="modal-input" rules = "require">
+                <span class="error-re-pass errors modal-message"></span>
+            </div>
             <div class="modal-submit">
                 <button id = "btn-sign-up" class = "submit">
                 Sign up
-            </button>
+                </button>
             </div>
             <h2>or</h2>
             <div class="modal-submit">
                 <div class = "redirect">
                 Login
-            </div>
+                </div>
             </div>  
         </div>
-        </div>
+    </div>
 </form>
+<form action="" class="modal" id = "modal-verify">
+    <div class="modal-verify">
+        <div class="modal-close">
+        <i class = "ti-close"></i>
+        </div>
+        <div class="modal-header">
+        Verify Account
+        </div>
+        <div class="modal-body">
+            <div class="modal-group">
+                <label for="" class="modal-label">Code</label>
+                <input type="text" name = "code" class="modal-input" rules = "require">
+                <span class="error-code errors modal-message"></span>
+            </div>
+            <div class="modal-submit">
+                <button id = "btn-verify" class = "submit">
+                Verify
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<div id="toast">
+
+</div>
+
+<script>
+
+    function HandleMes(option){
+            const main = document.getElementById('toast');
+            if(main)
+            {
+                const delay = option.duration/1000;
+                const toast = document.createElement('div');
+                toast.classList.add('toast' ,`toast--${option.type}`);
+                toast.style.animation = `SlideOn ease .3s, FadeOut linear 1s ${delay}s forwards`
+                toast.innerHTML = 
+                `<div class="toast__icons">
+                <i class="fa-regular fa-circle-check"></i>
+                </div>
+                <div class="toast__body">
+                    <h3 class="toast__title">${option.title}</h3>
+                    <p class="toast__mes">${option.mess}</p>
+                </div>
+                <div class="toast__close">
+                    <i class="fa-regular fa-circle-xmark"></i>
+                </div>`;
+                main.appendChild(toast);
+            
+                setTimeout(function(){
+                main.removeChild(toast);
+            },option.duration+1000);
+        }
+    }
+
+    function showSuccessToast()
+        {
+            HandleMes({
+            title: "An email has been sent to you",
+            mess: "Please check your email to verify your account",
+            type: 'success',
+            duration: 3000
+        })
+        }
+
+        
+
+    function Validator(formSelector) {
+        function getParrent(element,selector)
+        {
+            while(element.parentElement)
+            {
+                if(element.parentElement.matches(selector))
+                {
+                    return element.parentElement
+                }
+                element = element.parentElement
+            }
+        }
+
+        let formRules = {}
+
+        let ValidatorRules = {
+            require: (value) => {
+                return value ? undefined : "Please enter"
+            },
+             email : (value)=>{
+            let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            return regex.test(value) ?undefined:"Not is email";
+            },
+            min: (len)=>{
+                return (value)=>{
+                    return value.length>=len?undefined:`Min ${len}`
+                }
+            }
+        }
+
+        let formElement = document.querySelector(formSelector);
+        if (formElement) {
+            let inputs = formElement.querySelectorAll("[name][rules]")
+            for (let input of inputs) {
+                let rules = input.getAttribute("rules").split("|")
+                for (let rule of rules) {
+                    let isHaveKey = rule.includes(":")
+                    let ruleInfo
+                    if (isHaveKey)
+                    {
+                        ruleInfo = rule.split(":")
+                        rule = ruleInfo[0]
+                    }
+                    let ruleFunc = ValidatorRules[rule]
+                    if (isHaveKey)
+                    {
+                        ruleFunc = ruleFunc(ruleInfo[1])
+                    }
+                    if(Array.isArray(formRules[input.name]))
+                    {
+                        formRules[input.name].push(ruleFunc)
+                    }
+                    else formRules[input.name] = [ruleFunc]
+                }
+
+                input.onblur = HandleErrorMes;
+                input.oninput = HandleClearErrorMes;
+            }
+        }
+
+        function HandleErrorMes(event){
+            
+            let rules = formRules[event.target.name]
+            
+            let ErrorMes 
+            for(rule of rules)
+            {
+                ErrorMes = rule(event.target.value);
+                if(ErrorMes)
+                {
+                    break;
+                }
+            }
+
+            if(ErrorMes)
+            {
+                let ErrorInput = getParrent(event.target,'.modal-group')
+                if(ErrorInput)
+                {
+                    let point = ErrorInput.querySelector('.modal-message')
+                    point.innerText = ErrorMes
+                    ErrorInput.classList.add("invalid")
+                }
+            }
+            return ErrorMes;
+        }
+
+        function HandleClearErrorMes(event)
+        {
+            let ErrorInput = getParrent(event.target,'.modal-group')
+            if(ErrorInput.classList.contains('invalid'))
+            {
+                let point = ErrorInput.querySelector('.modal-message')
+                point.innerText = ''
+                ErrorInput.classList.remove("invalid")
+            }
+        }
+
+        formElement.onsubmit = async (e) => {
+            e.preventDefault();
+            let FormValue = {}
+            let inputs = formElement.querySelectorAll("[name][rules]")
+            let isValid = true
+            for (let input of inputs) {
+                if (HandleErrorMes({target : input})) {
+                    isValid = false
+                }
+                if (input.type == "radio") {
+                    let val = formElement.querySelector('input[name="'+input.name+'"]:checked')
+                    if (val) {
+                        FormValue[input.name] = val.value
+                    } else {
+                        isValid = false
+                    }
+                } else FormValue[input.name] = input.value
+            }
+        }
+    }
+    Validator("#modal-register")
+</script>
+
 <script>
     const modal_close = document.getElementsByClassName('modal-close');  
     const btn_signup = document.getElementById('btn-sign-up')
     const form_signup = document.querySelector('#modal-register')
     const modal_sign = document.getElementById('modal-register');
+    const modal_verify = document.getElementById('modal-verify');
+    const btn_verify = document.getElementById('btn-verify');
+    let codeVerify;
     
     modal_sign.classList.add('open')
 
     const ErrAcc = document.querySelector('.error-acc');
     const ErrPass = document.querySelector('.error-pass');
+    const ErrCode = document.querySelector('.error-code');
 
     const redirectForm = document.querySelector('.redirect');
     console.log(redirectForm);
@@ -59,35 +253,77 @@
     }
     
     btn_signup.onclick = async(e)=>{
-    e.preventDefault();
-    const user = form_signup.user.value;
-    const password = form_signup.password.value;
-    try{
-        const res = await fetch('./signUp',{
-        method: 'POST',
-        body: JSON.stringify({acc:user,password:password}),
-        headers: {'Content-Type':'application/json'}
-    })
-        const data = await res.json();
-        if(data.errors)
-        {
-            ErrAcc.textContent = data.errors.acc;
-            ErrPass.textContent = data.errors.password;
-            ErrAcc.parentElement.classList.add('invalid');
-            ErrPass.parentElement.classList.add('invalid');
-            console.log(data.errors.acc,data.errors.password)
+        e.preventDefault();
+        const user = form_signup.user.value;
+        const password = form_signup.password.value;
+        try{
+            const res = await fetch('./preSignUp',{
+                method: 'POST',
+                body: JSON.stringify({acc:user,password:password}),
+                headers: {'Content-Type':'application/json'}
+            })
+            const data = await res.json();
+            if(data.error)
+            {
+                console.log(data.error)
+                ErrAcc.textContent = data.error;
+                ErrAcc.parentElement.classList.add('invalid');
+                console.log(data.errors.acc,data.errors.password)
+            }
+            if(data.code)
+            {
+                codeVerify = data.code;
+                modal_sign.classList.remove('open');
+                modal_verify.classList.add('open');
+                showSuccessToast();
+                console.log(data.code)
+            }
         }
-        if(data.user)
+        catch(err)
         {
-            console.log("OKEEE")
-            e.preventDefault();
-            location.assign('/');
-        }
-    }
-    catch(err)
-    {
 
-    } 
+        } 
    }
+
+    btn_verify.onclick = async(e)=>{
+          e.preventDefault();
+          const user = form_signup.user.value;
+          const password = form_signup.password.value;
+          const code = document.querySelector('#modal-verify input').value;
+          console.log(code,codeVerify)
+          console.log(code==codeVerify)
+          if (code == codeVerify)
+          {
+             try{
+                const res = await fetch('./signUp',{
+                    method: 'POST',
+                    body: JSON.stringify({acc:user,password:password}),
+                    headers: {'Content-Type':'application/json'}
+                })
+                const data = await res.json();
+                if(data.errors)
+                {
+                 ErrAcc.textContent = data.errors.code;
+                 ErrAcc.parentElement.classList.add('invalid');
+                }
+                if(data.user)
+                {
+                 console.log("OKEEE")
+                 e.preventDefault();
+                 location.assign('/');
+                }
+            }
+            catch(err)
+            {
+    
+          } 
+          } else {
+            ErrCode.textContent = "Code is not correct";
+            ErrCode.parentElement.classList.add('invalid');
+          }
+
+           
+    }
    
 </script>
+

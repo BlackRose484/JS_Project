@@ -20,7 +20,7 @@
             </div>
 
             <div>
-                <a href="" class="modal-forget">Forget password?</a>
+                <a href="" class="btn-forget">Forget password?</a>
             </div>
             
             <div class="modal-submit">
@@ -37,14 +37,95 @@
         </div>
     </div>
 </form>
+<form action="" class="modal" id = "modal-forget">
+    <div class="modal-forget">
+        <div class="modal-close">
+            <i class = "ti-close"></i>
+        </div>
+        <div class="modal-header">
+            Forget Password
+        </div>
+        <div class="modal-body">
+            <div class="modal-group">
+                <label for="" class="modal-label">Account</label>
+                <input type="text" name = "userForget" class="modal-input">
+                <span class="error-re-pass errors modal-message"></span>
+            </div>
+            
+            <div class="modal-submit">
+                <button id = "btn-regetPass" class = "submit">
+                Send me password
+            </button>
+            </div>  
+        </div>
+    </div>
+</form>
+<div id="toast">
+
+</div>
+
 <script>
+
+    function HandleMes(option){
+            const main = document.getElementById('toast');
+            if(main)
+            {
+                const delay = option.duration/1000;
+                const toast = document.createElement('div');
+                toast.classList.add('toast' ,`toast--${option.type}`);
+                toast.style.animation = `SlideOn ease .3s, FadeOut linear 1s ${delay}s forwards`
+                toast.innerHTML = 
+                `<div class="toast__icons">
+                <i class="fa-regular fa-circle-check"></i>
+                </div>
+                <div class="toast__body">
+                    <h3 class="toast__title">${option.title}</h3>
+                    <p class="toast__mes">${option.mess}</p>
+                </div>
+                <div class="toast__close">
+                    <i class="fa-regular fa-circle-xmark"></i>
+                </div>`;
+                main.appendChild(toast);
+            
+                setTimeout(function(){
+                main.removeChild(toast);
+            },option.duration+1000);
+        }
+    }
+
+    function showSuccessToast()
+        {
+            HandleMes({
+            title: "An email has been sent to you",
+            mess: "Please check your email to get your password and login again",
+            type: 'success',
+            duration: 3000
+        })
+        }
+
+        function showErrorToast()
+        {
+            HandleMes({
+            title: "An error has been occured or your email is not exist",
+            mess: "Please check your email again",
+            type: 'error',
+            duration: 3000
+        })
+    }
+
     const btn_login = document.getElementById('btn-login');
     const form_login = document.querySelector('#modal-login');
     const modal_login = document.getElementById('modal-login');
     const modal_close = document.getElementsByClassName('modal-close');
+    const modal_forget = document.querySelector('#modal-forget');
+    const btn_forget = document.querySelector('.btn-forget');
+    const btn_regetPass = document.querySelector('#btn-regetPass');
+    const toast = document.querySelector('.toast');
+    console.log(btn_regetPass)
 
     const ErrAcc = document.querySelector('.error-acc');
     const ErrPass = document.querySelector('.error-pass');
+    const ErrRePass = document.querySelector('.error-re-pass');
 
     modal_login.classList.add('open');
 
@@ -58,6 +139,10 @@
         modal_login.classList.remove('open');
         location.assign('/');
     }
+    modal_close[1].onclick = ()=>{
+        modal_forget.classList.remove('open');
+        modal_login.classList.add('open');
+    }
 
     btn_login.onclick = async(e)=>{
     e.preventDefault();
@@ -65,10 +150,10 @@
     const password = form_login.password.value;
     try{
         const res = await fetch('./login',{
-        method: 'POST',
-        body: JSON.stringify({acc:user,password:password}),
-        headers: {'Content-Type':'application/json'}
-    })
+            method: 'POST',
+            body: JSON.stringify({acc:user,password:password}),
+            headers: {'Content-Type':'application/json'}
+        })
         const data = await res.json();
         if(data.errors)
         {
@@ -86,8 +171,49 @@
         }
     }
     catch(err)
-    {
+        {
 
-    }
+        }
    }
+
+   btn_forget.onclick = (e) => {
+         e.preventDefault();
+         modal_login.classList.remove('open');
+         modal_forget.classList.add('open');        
+   }
+
+  console.log(btn_regetPass);
+   btn_regetPass.onclick = async (e)=>{
+        e.preventDefault();
+        const userForget = modal_forget.userForget.value;
+        let regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (regex.test(userForget) == false) {
+            ErrRePass.textContent = "Email is invalid";
+            ErrRePass.parentElement.classList.add('invalid');
+        }
+        else{
+            ErrRePass.textContent = "";
+            ErrRePass.parentElement.classList.remove('invalid');
+            try {
+                const res = await fetch('./forgetPassword',{
+                    method: 'POST',
+                    body: JSON.stringify({acc:userForget}),
+                    headers: {'Content-Type':'application/json'}
+                })
+                if (res.status == 400) {
+                    ErrRePass.textContent = "Email is not exist";
+                    ErrRePass.parentElement.classList.add('invalid');
+                    showErrorToast();
+                }
+                if (res.status == 200) {
+                    modal_login.classList.add('open');
+                    modal_forget.classList.remove('open');
+                     showSuccessToast();
+                }
+                
+            } catch (error) {
+                
+            }
+        }
+    }
 </script>
